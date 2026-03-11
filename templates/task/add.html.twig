@@ -1,0 +1,87 @@
+{% extends 'base-auth.html.twig' %}
+
+{% block title %}Ajouter une tâche{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <!-- header -->
+    <h1 class="mt-4">{{ block('title') }}</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ block('title') }}</li>
+    </ol>
+    <!-- fin header -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            {{ block('title') }}
+        </div>
+        <form method="post" class="needs-validation form-signin" novalidate>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                {% if success %}
+                <div class="alert alert-success" role="alert">
+                    {{ success }}
+                </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nom de la tâche</label>
+                    <input type="text" id="name" name="name" class="form-control" required
+                        placeholder="Entrez un nom de tâche">
+                    <div class="invalid-feedback">Ce champ est requis.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" name="description" class="form-control" rows="4"
+                        placeholder="Détaillez la tâche" required></textarea>
+                    <div class="invalid-feedback">Ce champ est requis.</div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="start_date" class="form-label">Date de début</label>
+                        <input type="datetime-local" id="start_date" name="start_date" class="form-control" required>
+                        <div class="invalid-feedback">Veuillez indiquer la date de début.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="end_date" class="form-label">Date de fin</label>
+                        <input type="datetime-local" id="end_date" name="end_date" class="form-control" required>
+                        <div class="invalid-feedback">Veuillez indiquer la date de fin.</div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="status" class="form-label">Statut</label>
+                        <select id="status" name="status" class="form-select" required>
+                            <option value="">-- Choisir --</option>
+                            <option value="0">En cours</option>
+                            <option value="1">Terminé</option>
+                        </select>
+                        <div class="invalid-feedback">Veuillez sélectionner un statut.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="project" class="form-label">Projet associé</label>
+                        <select id="project" name="project" class="form-select select2" required>
+                            <option value="">-- Sélectionner un projet --</option>
+                            {% for project in projects %}
+                            <option value="{{ project.id }}">{{ project.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Veuillez sélectionner un projet.</div>
+                    </div>
+                </div>
+                <div class="card-footer mt-4">
+                    <button type="submit" class="btn btn-primary w-100 ">Enregistrer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

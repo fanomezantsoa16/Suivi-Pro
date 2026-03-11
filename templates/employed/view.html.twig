@@ -1,0 +1,69 @@
+{% extends 'base-auth.html.twig' %}
+
+{% block title %}Profil de l'employé{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+
+    <!-- header -->
+    <h1 class="mt-4">{{ block('title') }}</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ block('title') }}</li>
+    </ol>
+    <!-- fin header -->
+    <div class="card small">
+
+        <div class="card-body">
+
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            <table class="table table-striped table-sm">
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ employed.fname }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ employed.lname }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ employed.email }}</td>
+                </tr>
+                <tr>
+                    <th>Téléphone</th>
+                    <td>{{ employed.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Rôle</th>
+                    <td>{{ employed.role }}</td>
+                </tr>
+                <tr>
+                    <th>Date de création</th>
+                    <td>{{ employed.createdAt|date('d/m/Y H:i') }}</td>
+                </tr>
+                <tr>
+                    <th>Dernière mise à jour</th>
+                    <td>{{ employed.updatedAt|date('d/m/Y H:i') }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card-footer">
+            <div class="mt-4 d-flex align-items-center justify-content-center gap-2">
+                <a href="{{ path('employed_edit', { id: employed.id }) }}" class="btn btn-primary">Modifier</a>
+
+                <form method="post" action="{{ path('employed_delete', { id: employed.id }) }}"
+                    style="display:inline-block;"
+                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ employed.id) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

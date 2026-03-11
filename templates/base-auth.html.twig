@@ -8,19 +8,31 @@
     <link rel="stylesheet" href="{{ asset('vendor/simple-datatables/style.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/jsdelivr/css/style.min.css') }}">
     <script src="{{ asset('vendor/fontawesome-free-6.7.2/js/all.js') }}"></script>
 </head>
 
-<body class="bg-primary">
-    <div id="layoutAuthentication">
+<body class="sb-nav-fixed">
+    <!-- navbar -->
+    {% include 'partials/_navbar.html.twig' %}
+    <!-- fin navbar -->
+    <div id="layoutSidenav">
+        <!-- sidebar -->
+        {% include 'partials/_sidebar.html.twig' %}
+        <!-- fin sidebar -->
 
-        {% block body %}{% endblock %}
-        <div id="layoutAuthentication_footer">
+        <div id="layoutSidenav_content">
+            <main>
+                {% block body %}{% endblock %}
+            </main>
             <!-- footer -->
             {% include 'partials/_footer.html.twig' %}
             <!-- fin footer -->
         </div>
     </div>
+    <script src="{{ asset('vendor/jquery@3.6.4/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/jsdelivr/js/main.min.js') }}"></script>
+
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('vendor/Chart.js/Chart.min.js') }}" crossorigin="anonymous"></script>

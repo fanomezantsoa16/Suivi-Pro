@@ -1,0 +1,65 @@
+<div id="layoutSidenav_nav" class="sidebar-modern">
+    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Core</div>
+                <a class="nav-link" href="{{ path('home') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                    Tableau de bord
+                </a>
+                
+                <div class="sb-sidenav-menu-heading">Gestion</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRh"
+                    aria-expanded="false" aria-controls="collapseRh">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Employés
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseRh" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ path('employed') }}">Les employés</a>
+                        <a class="nav-link" href="{{ path('employed_add') }}">Ajouter un employé</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProjet"
+                    aria-expanded="false" aria-controls="collapseProjet">
+                    <div class="sb-nav-link-icon"><i class="fas fa-folder"></i></div>
+                    Projet
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseProjet" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ path('project_index') }}">Projets d'employé</a>
+                        <a class="nav-link" href="{{ path('project_new') }}">Ajouter un projet</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTask"
+                    aria-expanded="false" aria-controls="collapseTask">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    Tâche
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseTask" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ path('task_index') }}">Projets d'employé</a>
+                        <a class="nav-link" href="{{ path('task_add') }}">Ajouter un projet</a>
+                    </nav>
+                </div>
+
+                <div class="sb-sidenav-menu-heading">Profile</div>
+                <a class="nav-link" href="#">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
+                    Profile
+                </a>
+
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            {{ app.user.email }}
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,89 @@
+{% extends 'base-auth.html.twig' %}
+
+{% block title %}Liste des Tâches{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <!-- header -->
+    <h1 class="mt-4">{{ block('title') }}</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ block('title') }}</li>
+    </ol>
+    <!-- fin header -->
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Vos tâche
+            <small class="text-muted">({{ tasks|length }})</small>
+        </div>
+        <div class="card-body">
+            <table class="table" id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Projet</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Projet</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td style="padding: 12px;">{{ task.id }}</td>
+                        <td style="padding: 12px;">
+                            <a href="{{ path('task_view', { id: task.id }) }}">
+                                {{ task.name }}
+                            </a>
+                        </td>
+                        <td style="padding: 12px;">{{ task.description }}</td>
+                        <td style="padding: 12px;">{{ task.project.name }}</td>
+                        <!-- <td style="padding: 12px;">{{ task.startDate|date('Y-m-d') }}</td>
+                            <td style="padding: 12px;">{{ task.endDate|date('Y-m-d') }}</td> -->
+                        <td style="padding: 12px;">
+                            {% if task.status == 1 %}
+                            <span class="badge bg-success">Début</span>
+                            {% else %}
+                            <span class="badge bg-danger">Fin</span>
+                            {% endif %}
+                        </td>
+                        <td class="action">
+                            <a class="badge badge-primary" href="{{ path('task_view', { id: task.id }) }}">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a class="badge badge-success" href="{{ path('task_edit', { id: task.id }) }}">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                            <form method="post" action="{{ path('task_delete', { id: task.id }) }}"
+                                style="display:inline-block;"
+                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet tâche {{ task.name }}?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                                <button class="badge badge-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6">Aucune tâche trouvée.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

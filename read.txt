@@ -1,0 +1,34 @@
+lace un projet:
+symfony server:start
+
+Vérifie tes routes en ligne de commande :
+php bin/console debug:router
+
+Symfony garde un cache de ses routes. Il est possible que ce cache soit obsolète. Dans ce cas, vide le cache :
+php bin/console cache:clear
+
+Erreur dans un autre environnement (prod/dev)
+php bin/console cache:clear --env=prod
+php bin/console cache:clear --env=dev
+
+
+Supprimer les anciens fichiers de migration
+linux:
+rm -rf migrations/*.php
+
+windows:
+del /s /q migrations\*.php
+
+ou rmdir /s /q migrations
+
+
+pour faire les migration:
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+
+
+Recréer les migrations à partir de l'entité
+php bin/console doctrine:migrations:diff
+
+Générer les repositories!
+php bin/console make:entity --regenerate

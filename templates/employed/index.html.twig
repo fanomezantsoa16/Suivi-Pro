@@ -1,0 +1,73 @@
+{% extends 'base-auth.html.twig' %}
+
+{% block title %}Gestion des Employés{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <!-- header -->
+    <h1 class="mt-4">{{ block('title') }}</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ block('title') }}</li>
+    </ol>
+    <!-- fin header -->
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Liste des Employés
+            <small class="text-muted">({{ employed|length }})</small>
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom et Prénom</th>
+                        <th>Rôle</th>
+                        <th>Téléphone</th>
+                        <th>Email</th>
+                        <th>Date d'ajout</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom et Prénom</th>
+                        <th>Rôle</th>
+                        <th>Téléphone</th>
+                        <th>Email</th>
+                        <th>Date d'ajout</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for employee in employed %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('employed_view', { id: employee.id }) }}"
+                                class="link-primary fw-semibold text-decoration-none">
+                                {{ employee.id }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('employed_view', { id: employee.id }) }}"
+                                class="link-primary text-decoration-none">
+                                {{ employee.fname }}
+                                {{ employee.lname }}
+                            </a>
+                        </td>
+                        <td>{{ employee.role }}</td>
+                        <td>{{ employee.phone }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.createdAt|date('d/m/Y H:i') }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucun employé trouvé.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

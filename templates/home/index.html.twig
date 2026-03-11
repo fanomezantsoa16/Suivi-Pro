@@ -1,0 +1,132 @@
+{% extends 'base-auth.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <!-- header -->
+    <h1 class="mt-4">{{ block('title') }}</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ block('title') }}</li>
+    </ol>
+    <!-- fin header -->
+
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card hover card-primary text-white mb-4">
+                <div class="card-body">
+                    <h5 class="d-flex align-items-center justify-content-between">Administrateur<i
+                            class="fas fa-user-alt"></i></h5>
+                    <p>{{ users|length }} utilisateur{{ users|length > 1 ? 's' : '' }}</p>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card hover card-danger text-white mb-4">
+                <div class="card-body">
+                    <h5 class="d-flex align-items-center justify-content-between">Employés<i class="fas fa-users"></i>
+                    </h5>
+                    <p>{{ employed|length }} Employé{{ employed|length > 1 ? 's' : '' }}</p>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card hover card-warning text-white mb-4">
+                <div class="card-body">
+                    <h5 class="d-flex align-items-center justify-content-between">Projets<i class="fas fa-folder"></i>
+                    </h5>
+                    <p>{{ project|length }} projet{{ project|length > 1 ? 's' : '' }}</p>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card hover card-info text-white mb-4">
+                <div class="card-body">
+                    <h5 class="d-flex align-items-center justify-content-between">Tâches<i
+                            class="fas fa-chart-area"></i></h5>
+                    <p>{{ task|length }} tâche{{ task|length > 1 ? 's' : '' }}</p>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area me-1"></i>
+                    Area Chart Example
+                </div>
+                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    Bar Chart Example
+                </div>
+                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+    </div> -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Liste des utilisateurs enregistrés
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Email</th>
+                        <th>Date de création</th>
+                        <th>Dernière mise à jour</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Email</th>
+                        <th>Date de création</th>
+                        <th>Dernière mise à jour</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.createdAt|date('d/m/Y H:i:s') }}</td>
+                        <td>{{ user.updatedAt|date('d/m/Y H:i:s') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

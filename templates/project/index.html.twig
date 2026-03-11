@@ -1,0 +1,81 @@
+{% extends 'base-auth.html.twig' %}
+
+{% block title %}Liste des projets{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <!-- header -->
+    <h1 class="mt-4">{{ block('title') }}</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ block('title') }}</li>
+    </ol>
+    <!-- fin header -->
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Liste des projets de touts les projets
+            <small class="text-muted">({{ projects|length }})</small>
+        </div>
+        <div class="card-body">
+            <table class="table" id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom de proje</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                        <th>Date & Heure</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom de projet</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                        <th>Date & Heure</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td>{{ project.id }}</td>
+                        <td>
+                            <a href="{{ path('employed_view', { id: project.id }) }}">
+                                {{ project.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {% if project.status == 1 %}
+                            <span class="badge bg-success">Début</span>
+                            {% else %}
+                            <span class="badge bg-danger">Fin</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ project.beginning|date('d/m/Y') }}</td>
+                        <td>{{ project.end|date('d/m/Y') }}</td>
+                        <td class="action">
+                            <form method="post" action="{{ path('project_delete', { id: project.id }) }}"
+                                style="display:inline-block;"
+                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer Le project {{ project.name }}?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                                <button class="badge badge-pill badge-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucun employé trouvé.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

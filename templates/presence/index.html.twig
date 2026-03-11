@@ -1,0 +1,47 @@
+{% extends 'base-auth.html.twig' %}
+
+{% block title %}Marquer sa Présence{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Pointage de présence</h1>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+        <div class="alert alert-success">{{ success }}</div>
+    {% endif %}
+
+    <form method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">Sélectionnez votre email :</label>
+            <select name="email" id="email" class="form-select" required>
+                <option value="">-- Choisir un employé --</option>
+                {% for emp in employed %}
+                    <option value="{{ emp.email }}"
+                        {% if selectedEmployed and emp.email == selectedEmployed.email %}selected{% endif %}>
+                        {{ emp.fname }} {{ emp.lname }} ({{ emp.email }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" name="action" value="debut" class="btn btn-success">Début de journée</button>
+            <button type="submit" name="action" value="fin" class="btn btn-danger">Fin de journée</button>
+        </div>
+    </form>
+
+    {% if lastPresence %}
+        <p>Dernière action : 
+            {% if lastPresence.status == 1 %}
+                Début à {{ lastPresence.createdAt|date('H:i d/m/Y') }}
+            {% else %}
+                Fin à {{ lastPresence.createdAt|date('H:i d/m/Y') }}
+            {% endif %}
+        </p>
+    {% endif %}
+</div>
+{% endblock %}
